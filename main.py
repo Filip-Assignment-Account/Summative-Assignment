@@ -1,6 +1,11 @@
 from tkinter import *
 from tkinter import ttk
+import functools
 
+import Encryption
+
+def button_Click(name):
+    Encryption.init_encryption_window()
 
 def is_Even(number):
     if number % 2 == 0:
@@ -10,21 +15,22 @@ def is_Even(number):
 
 
 class Window(Tk):
-    def __init__(self, title):
+    def __init__(self, title, h, w):
         Tk.__init__(self)
         self.title(title)
-        container = ttk.Frame(self, height=3, width=3)
+        container = ttk.Frame(self, height=h, width=w)
         container.grid(row=0, column=0)
 
 
 if __name__ == "__main__":  # Need this here for the class to run
-    window = Window("egg")
+    window = Window("Algorithm Selection", 50, 50)
     button_Names = ["Encryption", "Fibonacci Numbers", "Sorting", "Brute Force",
                     "Randomised", "Recursion", "Search", "Dynamic Programming",
                     "Behavioral Design Pattern", "Creational Design Pattern",
                     "Structural Design Pattern"]
     for i in range(len(button_Names)):
-        button = ttk.Button(window, text=str(button_Names[i]))
+        button = ttk.Button(window, text=str(button_Names[i]), # Planned: make graphical buttons using classes
+            command=functools.partial(button_Click, button_Names[i]))
         button.grid(column=i, row=is_Even(i))
 
     window.mainloop()
