@@ -8,7 +8,7 @@ prime1 = 52609494872530492621
 prime2 = 52609494872530492621
 
 class Encryption:
-    def generate_key(self, key: tuple | None):
+    def generate_key(self, key: tuple | None): # TODO: give user the keys instead of piping them directly into the algorithm
         print("generate_key: key value: " + str(key))
         if key:
             try:
@@ -128,7 +128,7 @@ class Encryption:
                     print("Trying to run isprime")
                     if is_prime(int(prime1_text)) and is_prime(int(prime2_text)) and not is_decrypt:
                         self.encrypt_text(entry_msg.get('1.0', 'end-1c'), (prime1_text, prime2_text))
-                    elif is_prime(int(prime1_text)) and is_prime(int(prime2_text)) and not is_decrypt:
+                    elif is_prime(int(prime1_text)) and is_prime(int(prime2_text)) and is_decrypt:
                         self.Decrypt(entry_msg.get('1.0', 'end-1c'), (prime1_text, prime2_text))
                     else:
                         tkinter.messagebox.showerror("Error", "Value must be a prime integer")
