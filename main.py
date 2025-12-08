@@ -4,6 +4,7 @@ from tkinter import ttk
 import functools
 
 import Encryption
+import Fibonacci
 
 active_window = None
 main_window = None
@@ -19,9 +20,9 @@ def button_click(name: str, parent: str) -> None:
     window.withdraw()
     match name:
         case 'Encryption':
-            Encryption.init_encryption_window(parent)
+            Encryption.init_window(parent)
         case 'Fibonacci Numbers':
-            print("fib")
+            Fibonacci.init_window(parent)
         case _:
             tkinter.messagebox.showerror("Error", "Missing page for \"" + str(name) + "\" button")
             window.deiconify()
@@ -37,6 +38,43 @@ class Window(Tk):
             self.parent.deiconify()
         self.destroy()
 
+    def add_entry(self, numbers_only: bool, w: int, h: int, row: int, column: int, n: int) -> list:
+        """
+        Adds an entry box to the window within a container with optional built in validation for numbers
+        :param numbers_only: Enable validation for numbers only
+        :param w: Width of container
+        :param h: Height of container
+        :param row: Row of container (grid)
+        :param column: Column of container (grid)
+        :param n: Number of entry boxes to have next to each other with built-in padding
+        :return: List containing each entry box
+        """
+        def validate_numbers_only(input):
+            if input.isdigit() or input == "":
+                print("vaildation successful")
+                return True
+            else:
+                tkinter.messagebox.showerror("Validation failed", "You may only input numbers.")
+                return False
+
+        entry_container = ttk.Frame(self, height=h, width=w)
+        entry_container.grid(row=row, column=column)
+
+        vcmd = self.register(validate_numbers_only)
+
+        entries = [] # Keep list of entries to address them directly in other functions
+
+        for i in range(n):
+            if numbers_only:
+                entry = Entry(entry_container, validate="key", validatecommand=(vcmd, "%P"))
+            else:
+                entry = Entry(entry_container)
+            entry.grid(row=2, column=i+1, pady=10, padx=10)
+            entries.append(entry)
+
+        return entries
+
+
     def add_back_button(self) -> None:
         """
         Adds back button to the top left of a window.
@@ -48,11 +86,10 @@ class Window(Tk):
     def add_title(self, text: str, gridx: int, gridy: int) -> None:
         """
         Adds title to a window.
-        Args:
 
         :param text: Text to add as title.
-        :param gridx: Same as column=
-        :param gridy: Same as row=
+        :param gridx: Same as column= in tkinter
+        :param gridy: Same as row= in tkinter
         :return: None.
         """
         title_container = ttk.Frame(self, height=1, width=50)

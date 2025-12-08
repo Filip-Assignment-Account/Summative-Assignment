@@ -8,7 +8,12 @@ prime1 = 52609494872530492621
 prime2 = 52609494872530492621
 
 class Encryption:
-    def generate_key(self, key: tuple | None): # TODO: give user the keys instead of piping them directly into the algorithm
+    def generate_key(self, key: tuple | None) -> tuple[set[float | int], set[int]] | None:# TODO: give user the keys instead of piping them directly into the algorithm
+        """
+        Generates a key pair using two prime numbers
+        :param key: two prime numbers as a tuple
+        :return: tuple containing the public/private key pair, contains another tuple holding mult_priv if private_key, or exponent if public_key, as well as primemult
+        """
         print("generate_key: key value: " + str(key))
         if key:
             try:
@@ -147,15 +152,19 @@ class Encryption:
 
         window.add_title("Pick two prime numbers (optional): ", 1, 1)
 
-        entry_container = ttk.Frame(window, height=10, width=100)
+        """entry_container = ttk.Frame(window, height=10, width=100)
         entry_container.grid(row=2, column=1)
 
         vcmd = window.register(validate_input)
 
         entry_prime1 = Entry(entry_container, validate="key", validatecommand=(vcmd, "%P"))
         entry_prime1.grid(row=2, column=1, pady=10)
-        entry_prime2 = Entry(entry_container)
-        entry_prime2.grid(row=2, column=2, padx=10)
+        entry_prime2 = Entry(entry_container, validate="key", validatecommand=(vcmd, "%P"))
+        entry_prime2.grid(row=2, column=2, padx=10)"""
+
+        prime_inputs = window.add_entry(True, 100, 10, 2, 1, 2)
+        entry_prime1 = prime_inputs[0]
+        entry_prime2 = prime_inputs[1]
 
         msg_label = ttk.Label(window, text="Enter a message to encrypt/decrypt")
         msg_label.grid(row=3, column=1, pady=(20,0))
@@ -174,7 +183,7 @@ class Encryption:
         print(prime1)
 
 
-def init_encryption_window(main_window):
+def init_window(main_window: str):
     window = main.Window("Encryption", 40, 400)
     window.add_back_button()
     window.parent = main_window
