@@ -2,7 +2,26 @@ import main
 
 
 class Sorting:
-    def selection_sort(self):
+    def selection_sort(self, array):
+        arr_len = len(array)
+        for i in range(arr_len - 1):
+            minimum_index = i
+
+            for j in range(i + i, arr_len):
+                if array[j] < array[minimum_index]:
+                    minimum_index = j
+
+            array[i], array[minimum_index] = array[minimum_index], array[i]
+    def bubble_sort(self, array):
+        arr_len = len(array)
+        for i in range(arr_len):
+            swapped = False
+            for j in range(0, arr_len-i-1):
+                if array[j] > array[j+1]:
+                    array[j], array[j+1] = array[j+1], array[j]
+                    swapped = True
+            if not swapped:
+                break
 
 
     def __init__(self, window):
