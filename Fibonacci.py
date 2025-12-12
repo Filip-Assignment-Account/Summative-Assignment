@@ -1,3 +1,4 @@
+from __future__ import annotations
 import sys
 from tkinter import *
 from tkinter import ttk
@@ -51,7 +52,7 @@ class Fibonacci:
 
 
 
-    def __init__(self, window: main.Window):
+    def __init__(self, window):
         sys.set_int_max_str_digits(0) # allows for ludicrous numbers > 4300 digits
         window.add_title("Enter the nth fibonacci number to calculate", 1, 0)
         entry = window.add_entry(True, 5, 5, 1, 1, 1)
@@ -62,7 +63,7 @@ class Fibonacci:
         entry_button.grid(row=1, column=2)
         
 
-def init_window(main_window: str):
+def init_window(main_window: main.Window):
     window = main.Window("Fibonacci", 200, 300)
     window.add_back_button()
     window.parent = main_window

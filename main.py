@@ -5,6 +5,7 @@ import functools
 
 import Encryption
 import Fibonacci
+import Sorting
 
 active_window = None
 main_window = None
@@ -23,6 +24,8 @@ def button_click(name: str, parent: str) -> None:
             Encryption.init_window(parent)
         case 'Fibonacci Numbers':
             Fibonacci.init_window(parent)
+        case 'Sorting':
+            Sorting.init_window(parent)
         case _:
             tkinter.messagebox.showerror("Error", "Missing page for \"" + str(name) + "\" button")
             window.deiconify()
