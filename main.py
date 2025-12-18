@@ -71,7 +71,7 @@ class Window(Tk):
                         print("Succeeded space validation")
                         valid_space = True
 
-            if valid_space == True:
+            if valid_space:
                 return True
             if space_allowed:
                 tkinter.messagebox.showerror("Validation failed", "You may only input numbers or spaces")
