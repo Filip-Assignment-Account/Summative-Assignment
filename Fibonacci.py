@@ -55,7 +55,7 @@ class Fibonacci:
     def __init__(self, window):
         sys.set_int_max_str_digits(0) # allows for ludicrous numbers > 4300 digits
         window.add_title("Enter the nth fibonacci number to calculate", 1, 0)
-        entry = window.add_entry(True, 5, 5, 1, 1, 1)
+        entry = window.add_entry(True, 5, 5, 1, 1, 1, False)
         self.label = Label(window, text="Loading...", font=("Arial", 16), bg="lightblue")
         self.window = window
 

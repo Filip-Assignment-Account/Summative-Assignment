@@ -12,6 +12,7 @@ class Sorting:
                     minimum_index = j
 
             array[i], array[minimum_index] = array[minimum_index], array[i]
+
     def bubble_sort(self, array):
         arr_len = len(array)
         for i in range(arr_len):
@@ -26,6 +27,9 @@ class Sorting:
 
     def __init__(self, window):
         window.add_title("Sorting algorithm", 1, 1)
+        entry = window.add_entry(True, 5, 1, 2, 1, 1, True)
+
+        
 
 
 def init_window(main_window):

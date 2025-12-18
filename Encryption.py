@@ -1,4 +1,5 @@
 import tkinter.messagebox
+
 import main
 import math
 import functools
@@ -162,7 +163,7 @@ class Encryption:
         entry_prime2 = Entry(entry_container, validate="key", validatecommand=(vcmd, "%P"))
         entry_prime2.grid(row=2, column=2, padx=10)"""
 
-        prime_inputs = window.add_entry(True, 100, 10, 2, 1, 2)
+        prime_inputs = window.add_entry(True, 100, 10, 2, 1, 2, False)
         entry_prime1 = prime_inputs[0]
         entry_prime2 = prime_inputs[1]
 

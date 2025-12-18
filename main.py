@@ -6,6 +6,7 @@ import functools
 import Encryption
 import Fibonacci
 import Sorting
+import string
 
 active_window = None
 main_window = None
@@ -41,7 +42,7 @@ class Window(Tk):
             self.parent.deiconify()
         self.destroy()
 
-    def add_entry(self, numbers_only: bool, w: int, h: int, row: int, column: int, n: int) -> list:
+    def add_entry(self, numbers_only: bool, w: int, h: int, row: int, column: int, n: int, space_allowed: bool) -> list:
         """
         Adds an entry box to the window within a container with optional built in validation for numbers
         :param numbers_only: Enable validation for numbers only
@@ -50,12 +51,31 @@ class Window(Tk):
         :param row: Row of container (grid)
         :param column: Column of container (grid)
         :param n: Number of entry boxes to have next to each other with built-in padding
+        :param space_allowed: Enable validation with spaces
         :return: List containing each entry box
         """
-        def validate_numbers_only(input):
+        def validate_num_space(input):
+            valid_space = None
+            alphabet = string.ascii_lowercase # To prevent accidentally allowing letters
+            print("validation input: " + str(input))
             if input.isdigit() or input == "":
                 print("vaildation successful")
                 return True
+            if space_allowed:
+                for i in input:
+                    if i in alphabet:
+                        print("Failed space validation")
+                        valid_space = False
+                        break
+                    if i == " ":
+                        print("Succeeded space validation")
+                        valid_space = True
+
+            if valid_space == True:
+                return True
+            if space_allowed:
+                tkinter.messagebox.showerror("Validation failed", "You may only input numbers or spaces")
+                return False
             else:
                 tkinter.messagebox.showerror("Validation failed", "You may only input numbers.")
                 return False
@@ -63,7 +83,7 @@ class Window(Tk):
         entry_container = ttk.Frame(self, height=h, width=w)
         entry_container.grid(row=row, column=column)
 
-        vcmd = self.register(validate_numbers_only)
+        vcmd = self.register(validate_num_space)
 
         entries = [] # Keep list of entries to address them directly in other functions
 
