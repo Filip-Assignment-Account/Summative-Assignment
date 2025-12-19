@@ -50,9 +50,6 @@ class Sorting:
         if self.dropdown.getvar == "Bubble Sort":
             self.bubble_sort(entry_array)
 
-
-
-
     def __init__(self, window):
         window.add_title("Sorting algorithm", 1, 1)
         entry = window.add_entry(True, 5, 1, 2, 1, 1, True)
@@ -63,8 +60,6 @@ class Sorting:
         default_opt = StringVar(value="Bubble Sort")
         self.dropdown = ttk.OptionMenu(window, default_opt, *self.options)
         self.dropdown.grid(row=3, column=2)
-
-
 
 def init_window(main_window):
     window = main.Window("Sorting", 30, 100)
