@@ -1,10 +1,10 @@
 import tkinter.messagebox
-
 import main
 import math
 import functools
 from tkinter import *
 from tkinter import ttk
+
 prime1 = 52609494872530492621
 prime2 = 52609494872530492621
 

@@ -48,10 +48,6 @@ class Fibonacci:
         self.label.grid_forget()
         messagebox.showinfo("Fibonacci", f"The fibonacci number at position {entry[0].get()} is: {num}")
 
-        #self.label.config(text=f"The fibonacci number at position {entry[0].get()} is: {num})")
-
-
-
     def __init__(self, window):
         sys.set_int_max_str_digits(0) # allows for ludicrous numbers > 4300 digits
         window.add_title("Enter the nth fibonacci number to calculate", 1, 0)

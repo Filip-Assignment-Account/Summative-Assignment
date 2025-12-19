@@ -1,8 +1,8 @@
 [project]
 dynamic = ["version"]
 dependencies = [
-    "functools"
-    "tkinter"
+    "functools",
+    "tkinter",
     "math"
 ]
 requires-python = ">=3.10"
