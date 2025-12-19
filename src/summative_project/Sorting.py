@@ -60,6 +60,7 @@ class Sorting:
         default_opt = StringVar(value="Bubble Sort")
         self.dropdown = ttk.OptionMenu(window, default_opt, *self.options)
         self.dropdown.grid(row=3, column=2)
+        
 
 def init_window(main_window):
     window = main.Window("Sorting", 30, 100)

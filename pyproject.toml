@@ -1,8 +1,11 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+
 [project]
 dynamic = ["version"]
-dependencies = [
-    "functools",
-    "tkinter",
-    "math"
-]
 requires-python = ">=3.10"
+name = "Summative"
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
