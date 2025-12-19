@@ -10,7 +10,7 @@ This UI application shows 7 different algorithms that can be run given user inpu
 - Search (Largest, smallest, mode and median)
 
 # Requirements:
-Python 3.7+  
+Python 3.10+  
 Tkinter  
 Functools
 
