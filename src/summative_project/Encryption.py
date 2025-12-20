@@ -105,44 +105,41 @@ class Encryption:
         print(decrypted_msg)
         return decrypted_msg
 
-    def generate_keys_function(self, prime1, prime2):
-        if prime1_text == '' and prime2_text == '' and not is_decrypt:
-            self.encrypt_text(entry_msg.get('1.0', 'end-1c'), None) # Gets text from beginning until the end of the text box
-            return
-        elif prime1_text == '' and prime2_text == '' and is_decrypt:
-            self.Decrypt(entry_msg.get('1.0', 'end-1c'), None)
+    def is_prime(self, number):
+        print("isprime: Checking if "+ str(number) + " is prime")
+        if number <= 1:
+            return False
+        for i in range(2, int(number**0.5) + 1):
+            print("isprime: i is currently: "+ str(i))
+            print(number % 1)
+            if number % i == 0:
+                return False
+        return True
+
+    def generate_keys_button(self, prime1, prime2):
+        print("button_encrypt: value of prime1_text: " + str(prime1_text))
+        print("button_encrypt: value of prime2_text: " + str(prime2_text))
+        try:
+            print("Trying to run isprime")
+            if self.is_prime(int(prime1)) and is_prime(int(prime2)) and not is_decrypt:
+                self.encrypt_text(entry_msg.get('1.0', 'end-1c'), (prime1, prime2))
+            elif self.is_prime(int(prime1)) and is_prime(int(prime2)) and is_decrypt:
+                self.Decrypt(entry_msg.get('1.0', 'end-1c'), (prime1, prime2))
+            else:
+                tkinter.messagebox.showerror("Error", "Value must be a prime integer")
+        except Exception as e:
+            print(e)
+            tkinter.messagebox.showerror("Error", "Value must be a prime integer")
 
     def __init__(self, window):
-        def is_prime(number):
-            print("isprime: Checking if "+ str(number) + " is prime")
-            if number <= 1:
-                return False
-            for i in range(2, int(number**0.5) + 1):
-                print("isprime: i is currently: "+ str(i))
-                print(number % 1)
-                if number % i == 0:
-                    return False
-            return True
-
-
         def button_encrypt(is_decrypt: bool) -> None:
-            prime1_text = entry_prime1.get()
-            prime2_text = entry_prime2.get()
-            print("button_encrypt: value of prime1_text: " + str(prime1_text))
-            print("button_encrypt: value of prime2_text: " + str(prime2_text))
-
+            if key == '' and not is_decrypt:
+                self.encrypt_text(entry_msg.get('1.0', 'end-1c'), None) # Gets text from beginning until the end of the text box
+                return
+            elif key == '' and is_decrypt:
+                self.Decrypt(entry_msg.get('1.0', 'end-1c'), None)
             else:
-                try:
-                    print("Trying to run isprime")
-                    if is_prime(int(prime1_text)) and is_prime(int(prime2_text)) and not is_decrypt:
-                        self.encrypt_text(entry_msg.get('1.0', 'end-1c'), (prime1_text, prime2_text))
-                    elif is_prime(int(prime1_text)) and is_prime(int(prime2_text)) and is_decrypt:
-                        self.Decrypt(entry_msg.get('1.0', 'end-1c'), (prime1_text, prime2_text))
-                    else:
-                        tkinter.messagebox.showerror("Error", "Value must be a prime integer")
-                except Exception as e:
-                    print(e)
-                    tkinter.messagebox.showerror("Error", "Value must be a prime integer")
+                print("stuff if a key exists would go here")
 
 
         def validate_input(input):
@@ -168,7 +165,7 @@ class Encryption:
         entry_msg = Text(msg_container, width=30, height=2)
         entry_msg.grid(row=0, column=0, padx=(30,0))
 
-        generate_keys_button = Button(window, text="Generate Keys", commands=functools.partial(generate_keys_function, entry_prime1.get(), entry_prime2.get()))
+        generate_keys_button = Button(window, text="Generate Keys", commands=functools.partial(self.generate_keys_button, entry_prime1.get(), entry_prime2.get()))
 
         encrypt_button = Button(window, text="Encrypt text", command=functools.partial(button_encrypt, False))
         encrypt_button.grid(row=4, column=3)
