@@ -19,7 +19,8 @@ class Sorting:
                     minimum_index = j
 
             array[i], array[minimum_index] = array[minimum_index], array[i]
-            print("selection sort: " + str(array))
+            #print("selection sort: " + str(array))
+        print("final array: " + str(array))
         return array
 
     def bubble_sort(self, array):
@@ -35,7 +36,7 @@ class Sorting:
             for j in range(0, arr_len-i-1):
                 if array[j] > array[j+1]:
                     array[j], array[j+1] = array[j+1], array[j]
-                    print("Bubble sort: " + str(array))
+                    #print("Bubble sort: " + str(array))
                     swapped = True
             if not swapped:
                 print("final array: " + str(array))
