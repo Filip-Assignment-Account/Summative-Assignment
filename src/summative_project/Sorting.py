@@ -5,6 +5,7 @@ from tkinter import *
 
 class Sorting:
     def selection_sort(self, array):
+        print("running selection sort")
         arr_len = len(array)
         for i in range(arr_len - 1):
             minimum_index = i
@@ -16,10 +17,12 @@ class Sorting:
             array[i], array[minimum_index] = array[minimum_index], array[i]
 
     def bubble_sort(self, array):
+        print("running bubble sort")
         arr_len = len(array)
         for i in range(arr_len):
             swapped = False
             for j in range(0, arr_len-i-1):
+                print("Bubble sort: " + str(j))
                 if array[j] > array[j+1]:
                     array[j], array[j+1] = array[j+1], array[j]
                     swapped = True
@@ -44,10 +47,13 @@ class Sorting:
             print("button_run: final number appended")
 
         print("button_run: final entry_array: " + str(entry_array))
+        print("button_run: got dropdown var: " + str(self.opt.get()))
 
-        if self.dropdown.getvar == "Selection Sort":
+        if self.opt.get() == "Selection Sort":
+            print("button_run: got selection sort")
             self.selection_sort(entry_array)
-        if self.dropdown.getvar == "Bubble Sort":
+        if self.opt.get() == "Bubble Sort":
+            print("button_run: got bubble sort")
             self.bubble_sort(entry_array)
 
     def __init__(self, window):
@@ -56,16 +62,16 @@ class Sorting:
         entry_button = ttk.Button(window, text="Run algorithm", command=main.functools.partial(self.button_run, entry))
         entry_button.grid(row=2, column=2)
 
-        self.options = ["", "Selection Sort", "Bubble Sort"] # Need first index in list empty because for some reason the first index doesn't show up unless ttk isn't used
-        default_opt = StringVar(value="Bubble Sort")
-        self.dropdown = ttk.OptionMenu(window, default_opt, *self.options)
+        self.options = ["Selection Sort", "Bubble Sort"]
+        self.opt = StringVar()
+        self.dropdown = ttk.OptionMenu(window, self.opt, self.options[0],*self.options) # Currently ignoring user values for some reason
         self.dropdown.grid(row=3, column=2)
 
         text_label = Label(window, text="Output:")
         text_label.grid(row=3, column=1)
         self.text = Text(window, wrap='word', height=2, width=30)
         self.text.grid(row=4, column=1)
-        self.text.config(state="disabled") # type: ignore
+        self.text.config(state="disabled")
         
 
 def init_window(main_window):
