@@ -4,7 +4,12 @@ from tkinter import *
 
 
 class Sorting:
-    def selection_sort(self, array):
+    def selection_sort(self, array: list) -> list:
+        """
+        Given a list input, outputs a sorted list using the selection sort algorithm
+        :param array: List to sort
+        :return: Sorted list
+        """
         print("running selection sort")
         arr_len = len(array)
         for i in range(arr_len):
@@ -18,6 +23,11 @@ class Sorting:
         return array
 
     def bubble_sort(self, array):
+        """
+            Given a list input, outputs a sorted list using the bubble sort algorithm
+            :param array: List to sort
+            :return: Sorted list
+        """
         print("running bubble sort")
         arr_len = len(array)
         for i in range(arr_len):
@@ -31,13 +41,23 @@ class Sorting:
                 print("final array: " + str(array))
                 return array
 
-    def update_textbox(self, msg):
+    def update_textbox(self, msg: str) -> None:
+        """
+        Updates output textbox with arbitrary text
+        :param msg: Text to put in the textbox
+        :return: None
+        """
         self.text.config(state="normal") # Text won't be written unless textbox is enabled for a short period of time
         self.text.delete('1.0', END)
         self.text.insert(END, str(msg))
         self.text.config(state="disabled")
 
-    def button_run(self, entry):
+    def button_run(self, entry: list) -> None:
+        """
+        Handles which algorithm to run and ensures that each index is an integer when the user clicks the button
+        :param entry:
+        :return:
+        """
         entry_input = entry[0].get()
         print("button run: " + entry_input)
         entry_array = []
@@ -45,7 +65,7 @@ class Sorting:
         for i in entry_input:
             if i != " ":
                 entry_number = entry_number + i
-            if i == " ":
+            if i == " ": # Separate each index by a space
                 print("button_run: detected space, entry_number: " + str(entry_number))
                 entry_array.append(int(entry_number))
                 print("button_run: entry_array: " + str(entry_array))
