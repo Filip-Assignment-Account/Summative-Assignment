@@ -63,8 +63,8 @@ class Sorting:
         entry_button.grid(row=2, column=2)
 
         self.options = ["Selection Sort", "Bubble Sort"]
-        self.opt = StringVar()
-        self.dropdown = ttk.OptionMenu(window, self.opt, self.options[0],*self.options) # Currently ignoring user values for some reason
+        self.opt = StringVar(window)
+        self.dropdown = ttk.OptionMenu(window, self.opt, self.options[0],*self.options)
         self.dropdown.grid(row=3, column=2)
 
         text_label = Label(window, text="Output:")
