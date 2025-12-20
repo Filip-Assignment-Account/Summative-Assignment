@@ -105,6 +105,13 @@ class Encryption:
         print(decrypted_msg)
         return decrypted_msg
 
+    def generate_keys_function(self, prime1, prime2):
+        if prime1_text == '' and prime2_text == '' and not is_decrypt:
+            self.encrypt_text(entry_msg.get('1.0', 'end-1c'), None) # Gets text from beginning until the end of the text box
+            return
+        elif prime1_text == '' and prime2_text == '' and is_decrypt:
+            self.Decrypt(entry_msg.get('1.0', 'end-1c'), None)
+
     def __init__(self, window):
         def is_prime(number):
             print("isprime: Checking if "+ str(number) + " is prime")
@@ -117,17 +124,12 @@ class Encryption:
                     return False
             return True
 
+
         def button_encrypt(is_decrypt: bool) -> None:
             prime1_text = entry_prime1.get()
             prime2_text = entry_prime2.get()
             print("button_encrypt: value of prime1_text: " + str(prime1_text))
             print("button_encrypt: value of prime2_text: " + str(prime2_text))
-
-            if prime1_text == '' and prime2_text == '' and not is_decrypt:
-                self.encrypt_text(entry_msg.get('1.0', 'end-1c'), None) # Gets text from beginning until the end of the text box
-                return
-            elif prime1_text == '' and prime2_text == '' and is_decrypt:
-                self.Decrypt(entry_msg.get('1.0', 'end-1c'), None)
 
             else:
                 try:
@@ -153,16 +155,6 @@ class Encryption:
 
         window.add_title("Pick two prime numbers (optional): ", 1, 1)
 
-        """entry_container = ttk.Frame(window, height=10, width=100)
-        entry_container.grid(row=2, column=1)
-
-        vcmd = window.register(validate_input)
-
-        entry_prime1 = Entry(entry_container, validate="key", validatecommand=(vcmd, "%P"))
-        entry_prime1.grid(row=2, column=1, pady=10)
-        entry_prime2 = Entry(entry_container, validate="key", validatecommand=(vcmd, "%P"))
-        entry_prime2.grid(row=2, column=2, padx=10)"""
-
         prime_inputs = window.add_entry(True, 100, 10, 2, 1, 2, False)
         entry_prime1 = prime_inputs[0]
         entry_prime2 = prime_inputs[1]
@@ -175,6 +167,8 @@ class Encryption:
 
         entry_msg = Text(msg_container, width=30, height=2)
         entry_msg.grid(row=0, column=0, padx=(30,0))
+
+        generate_keys_button = Button(window, text="Generate Keys", commands=functools.partial(generate_keys_function, entry_prime1.get(), entry_prime2.get()))
 
         encrypt_button = Button(window, text="Encrypt text", command=functools.partial(button_encrypt, False))
         encrypt_button.grid(row=4, column=3)
