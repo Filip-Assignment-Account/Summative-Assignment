@@ -7,14 +7,15 @@ class Sorting:
     def selection_sort(self, array):
         print("running selection sort")
         arr_len = len(array)
-        for i in range(arr_len - 1):
+        for i in range(arr_len):
             minimum_index = i
-
-            for j in range(i + i, arr_len):
+            for j in range(i + 1, arr_len):
                 if array[j] < array[minimum_index]:
                     minimum_index = j
 
             array[i], array[minimum_index] = array[minimum_index], array[i]
+            print("selection sort: " + str(array))
+        return array
 
     def bubble_sort(self, array):
         print("running bubble sort")
@@ -29,6 +30,12 @@ class Sorting:
             if not swapped:
                 print("final array: " + str(array))
                 return array
+
+    def update_textbox(self, msg):
+        self.text.config(state="normal") # Text won't be written unless textbox is enabled for a short period of time
+        self.text.delete('1.0', END)
+        self.text.insert(END, str(msg))
+        self.text.config(state="disabled")
 
     def button_run(self, entry):
         entry_input = entry[0].get()
@@ -52,10 +59,12 @@ class Sorting:
 
         if self.opt.get() == "Selection Sort":
             print("button_run: got selection sort")
-            self.selection_sort(entry_array)
+            sorted_array = self.selection_sort(entry_array)
+            self.update_textbox(sorted_array)
         if self.opt.get() == "Bubble Sort":
             print("button_run: got bubble sort")
-            self.bubble_sort(entry_array)
+            sorted_array = self.bubble_sort(entry_array)
+            self.update_textbox(sorted_array)
 
     def __init__(self, window):
         window.add_title("Sorting algorithm", 1, 1)
@@ -68,9 +77,9 @@ class Sorting:
         self.dropdown = ttk.OptionMenu(window, self.opt, self.options[0],*self.options)
         self.dropdown.grid(row=3, column=2)
 
-        text_label = Label(window, text="Output:")
+        text_label = Label(window, text="Output (scrollable):")
         text_label.grid(row=3, column=1)
-        self.text = Text(window, wrap='word', height=2, width=30)
+        self.text = Text(window, wrap='word', height=5, width=30)
         self.text.grid(row=4, column=1)
         self.text.config(state="disabled")
         
