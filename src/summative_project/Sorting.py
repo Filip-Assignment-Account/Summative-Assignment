@@ -22,12 +22,13 @@ class Sorting:
         for i in range(arr_len):
             swapped = False
             for j in range(0, arr_len-i-1):
-                print("Bubble sort: " + str(j))
                 if array[j] > array[j+1]:
                     array[j], array[j+1] = array[j+1], array[j]
+                    print("Bubble sort: " + str(array))
                     swapped = True
             if not swapped:
-                break
+                print("final array: " + str(array))
+                return array
 
     def button_run(self, entry):
         entry_input = entry[0].get()
@@ -39,11 +40,11 @@ class Sorting:
                 entry_number = entry_number + i
             if i == " ":
                 print("button_run: detected space, entry_number: " + str(entry_number))
-                entry_array.append(entry_number)
+                entry_array.append(int(entry_number))
                 print("button_run: entry_array: " + str(entry_array))
                 entry_number = ""
         if entry_number != "":
-            entry_array.append(entry_number) # If last number is not added to the final array
+            entry_array.append(int(entry_number)) # If last number is not added to the final array
             print("button_run: final number appended")
 
         print("button_run: final entry_array: " + str(entry_array))
