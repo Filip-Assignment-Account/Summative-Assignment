@@ -77,7 +77,7 @@ class Encryption:
         print("Encrypted")
         return encrypted_msg
 
-    def Decrypt(self, msg: str, key: tuple | None) -> str:
+    def decrypt_text(self, msg: str, key: tuple | None) -> str:
         keys = self.generate_key(key)
 
         private_key = keys[0]
@@ -117,8 +117,8 @@ class Encryption:
         return True
 
     def generate_keys_button(self, prime1, prime2):
-        print("button_encrypt: value of prime1_text: " + str(prime1_text))
-        print("button_encrypt: value of prime2_text: " + str(prime2_text))
+        print("button_encrypt: value of prime1_text: " + str(prime1))
+        print("button_encrypt: value of prime2_text: " + str(prime2))
         try:
             print("Trying to run isprime")
             """if self.is_prime(int(prime1)) and self.is_prime(int(prime2)) and not is_decrypt:
@@ -129,22 +129,27 @@ class Encryption:
                 tkinter.messagebox.showerror("Error", "Value must be a prime integer")"""
             if self.is_prime(int(prime1)) and self.is_prime(int(prime2)):
                 private_key, public_key = self.generate_key((prime1, prime2))
+                return private_key, public_key
+            else:
+                tkinter.messagebox.showerror("Error", "Value must be a prime integer")
         except Exception as e:
             print(e)
             tkinter.messagebox.showerror("Error", "Value must be a prime integer")
 
     def __init__(self, window):
         def button_encrypt(is_decrypt: bool) -> None:
-            if key == '' and not is_decrypt:
+            if self.key == '' and not is_decrypt:
                 self.encrypt_text(entry_msg.get('1.0', 'end-1c'), None) # Gets text from beginning until the end of the text box
                 return
-            elif key == '' and is_decrypt:
-                self.Decrypt(entry_msg.get('1.0', 'end-1c'), None)
-            else:
-                print("stuff if a key exists would go here")
+            elif self.key == '' and is_decrypt:
+                self.decrypt_text(entry_msg.get('1.0', 'end-1c'), None)
+            elif is_decrypt:
+                self.encrypt_text(entry_msg.get('1.0', 'end-1c'), self.key)
+            elif not is_decrypt:
+                self.decrypt_text(entry_msg.get('1.0', 'end-1c'), self.key)
 
 
-        def validate_input(input):
+        def validate_input(input): # to delete?
             if input.isdigit() or input == "":
                 print("vaildation successful")
                 return True
@@ -157,6 +162,8 @@ class Encryption:
         prime_inputs = window.add_entry(True, 100, 10, 2, 1, 2, False)
         entry_prime1 = prime_inputs[0]
         entry_prime2 = prime_inputs[1]
+
+        key_input = window.add_entry(True, 100, 10, 2, 2, 1, False)
 
         msg_label = ttk.Label(window, text="Enter a message to encrypt/decrypt")
         msg_label.grid(row=3, column=1, pady=(20,0))
