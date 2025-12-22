@@ -121,12 +121,14 @@ class Encryption:
         print("button_encrypt: value of prime2_text: " + str(prime2_text))
         try:
             print("Trying to run isprime")
-            if self.is_prime(int(prime1)) and is_prime(int(prime2)) and not is_decrypt:
+            """if self.is_prime(int(prime1)) and self.is_prime(int(prime2)) and not is_decrypt:
                 self.encrypt_text(entry_msg.get('1.0', 'end-1c'), (prime1, prime2))
             elif self.is_prime(int(prime1)) and is_prime(int(prime2)) and is_decrypt:
                 self.Decrypt(entry_msg.get('1.0', 'end-1c'), (prime1, prime2))
             else:
-                tkinter.messagebox.showerror("Error", "Value must be a prime integer")
+                tkinter.messagebox.showerror("Error", "Value must be a prime integer")"""
+            if self.is_prime(int(prime1)) and self.is_prime(int(prime2)):
+                private_key, public_key = self.generate_key((prime1, prime2))
         except Exception as e:
             print(e)
             tkinter.messagebox.showerror("Error", "Value must be a prime integer")
