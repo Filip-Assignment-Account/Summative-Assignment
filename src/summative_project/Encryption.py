@@ -50,14 +50,22 @@ class Encryption:
         print("generate_key: Key pair generated: " + str(private_key) + str(public_key))
         return private_key, public_key
 
-    def tuple_key(self, key: list):
-        new_key = key[0].split(", ")
-        print("new key: " + str(new_key))
+    def tuple_key(self, key: str):
+        new_key = ''
+        for letter in key:
+            print("tuple_key: " + str(letter))
+            if letter.isdigit() or letter == "." or letter == "+" or letter == ",":
+                new_key = new_key + letter
+        split_key = new_key.split(",")
+        print("split key: " + str(split_key))
         print("key: " + str(key))
-        if len(new_key) != 2:
+        if len(split_key) != 2:
             tkinter.messagebox.showerror("Invalid key", "Key must be in format (number, number) and cannot include both private and public keys at the same time")
             return None
-        return new_key
+
+        split_key[0] = int(split_key[0])
+        split_key[1] = int(split_key[1])
+        return split_key
 
 
     def encrypt_text(self, msg: str, key: tuple) -> str | None:
