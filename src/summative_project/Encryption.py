@@ -50,12 +50,23 @@ class Encryption:
         print("generate_key: Key pair generated: " + str(private_key) + str(public_key))
         return private_key, public_key
 
-    def encrypt_text(self, msg: str, key: tuple | None) -> str:
-        print("encrypt: key value: " + str(key))
-        keys = self.generate_key(key)
-        print("encrypt: got key pair: " + str(keys))
+    def tuple_key(self, key: list):
+        new_key = key[0].split(", ")
+        print("new key: " + str(new_key))
+        print("key: " + str(key))
+        if len(new_key) != 2:
+            tkinter.messagebox.showerror("Invalid key", "Key must be in format (number, number) and cannot include both private and public keys at the same time")
+            return None
+        return new_key
 
-        public_key = keys[1]
+
+    def encrypt_text(self, msg: str, key: tuple) -> str | None:
+        print("encrypt: key value: " + str(key))
+
+        if not key:
+            return
+
+        public_key = key
         n, e = public_key
 
         encrypted_msg = ''
@@ -77,10 +88,9 @@ class Encryption:
         print("Encrypted")
         return encrypted_msg
 
-    def decrypt_text(self, msg: str, key: tuple | None) -> str:
-        keys = self.generate_key(key)
-
-        private_key = keys[0]
+    def decrypt_text(self, msg: str, key: tuple) -> str:
+        print("decrypt_text: key: " + str(key))
+        private_key = key[0]
         n, d = private_key
 
         decrypted_msg = ''
@@ -116,9 +126,11 @@ class Encryption:
                 return False
         return True
 
-    def generate_keys_button(self, prime1, prime2):
-        print("button_encrypt: value of prime1_text: " + str(prime1))
-        print("button_encrypt: value of prime2_text: " + str(prime2))
+    def generate_keys_button(self, entry_prime1, entry_prime2):
+        prime_text1 = entry_prime1.get()
+        prime_text2 = entry_prime2.get()
+        print("button_encrypt: value of prime1_text: " + str(prime_text1))
+        print("button_encrypt: value of prime2_text: " + str(prime_text2))
         try:
             print("Trying to run isprime")
             """if self.is_prime(int(prime1)) and self.is_prime(int(prime2)) and not is_decrypt:
@@ -127,8 +139,11 @@ class Encryption:
                 self.Decrypt(entry_msg.get('1.0', 'end-1c'), (prime1, prime2))
             else:
                 tkinter.messagebox.showerror("Error", "Value must be a prime integer")"""
-            if self.is_prime(int(prime1)) and self.is_prime(int(prime2)):
+            if prime_text1 == "" and prime_text2 == "":
                 private_key, public_key = self.generate_key((prime1, prime2))
+                return private_key, public_key
+            elif self.is_prime(int(prime_text1)) and self.is_prime(int(prime_text2)):
+                private_key, public_key = self.generate_key((prime_text1, prime_text2))
                 return private_key, public_key
             else:
                 tkinter.messagebox.showerror("Error", "Value must be a prime integer")
@@ -138,15 +153,16 @@ class Encryption:
 
     def __init__(self, window):
         def button_encrypt(is_decrypt: bool) -> None:
-            if self.key == '' and not is_decrypt:
-                self.encrypt_text(entry_msg.get('1.0', 'end-1c'), None) # Gets text from beginning until the end of the text box
+            key = key_input[0].get()
+            if key == '' and not is_decrypt:
+                self.encrypt_text(self.msg.get('1.0', 'end-1c'), self.generate_key(None)) # Gets text from beginning until the end of the text box
                 return
-            elif self.key == '' and is_decrypt:
-                self.decrypt_text(entry_msg.get('1.0', 'end-1c'), None)
+            elif key == '' and is_decrypt:
+                self.decrypt_text(self.msg.get('1.0', 'end-1c'), self.generate_key(None))
             elif is_decrypt:
-                self.encrypt_text(entry_msg.get('1.0', 'end-1c'), self.key)
+                self.encrypt_text(self.msg.get('1.0', 'end-1c'), self.tuple_key(key))
             elif not is_decrypt:
-                self.decrypt_text(entry_msg.get('1.0', 'end-1c'), self.key)
+                self.decrypt_text(self.msg.get('1.0', 'end-1c'), self.tuple_key(key))
 
 
         def validate_input(input): # to delete?
@@ -163,18 +179,19 @@ class Encryption:
         entry_prime1 = prime_inputs[0]
         entry_prime2 = prime_inputs[1]
 
-        key_input = window.add_entry(True, 100, 10, 2, 2, 1, False)
+        key_input = window.add_entry(False, 100, 20, 4, 1, 1, False)
+        window.add_title("Input private or public key pair here:", 1, 3)
 
         msg_label = ttk.Label(window, text="Enter a message to encrypt/decrypt")
-        msg_label.grid(row=3, column=1, pady=(20,0))
+        msg_label.grid(row=5, column=1, pady=(0,0))
 
         msg_container = ttk.Frame(window, height=10, width=100)
-        msg_container.grid(row=4, column=1)
+        msg_container.grid(row=6, column=1)
+        self.msg = Text(msg_container, wrap='word', height=5, width=30)
+        self.msg.grid(row=0, column=0)
 
-        entry_msg = Text(msg_container, width=30, height=2)
-        entry_msg.grid(row=0, column=0, padx=(30,0))
-
-        generate_keys_button = Button(window, text="Generate Keys", commands=functools.partial(self.generate_keys_button, entry_prime1.get(), entry_prime2.get()))
+        generate_keys_button = Button(window, text="Generate Keys", command=functools.partial(self.generate_keys_button, entry_prime1, entry_prime2))
+        generate_keys_button.grid(row=2, column=3)
 
         encrypt_button = Button(window, text="Encrypt text", command=functools.partial(button_encrypt, False))
         encrypt_button.grid(row=4, column=3)
