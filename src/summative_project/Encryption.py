@@ -4,11 +4,15 @@ import math
 import functools
 from tkinter import *
 from tkinter import ttk
+import decimal
+from decimal import Decimal
 
-prime1 = 52609494872530492621
-prime2 = 52609494872530492621
+prime1 = 621869
+prime2 = 655229
 
 class Encryption:
+    decimalcontext = decimal.Context(prec=decimal.MAX_PREC, Emax=decimal.MAX_EMAX)
+
     def generate_key(self, key: tuple | None) -> tuple[set[float | int], set[int]] | None:# TODO: give user the keys instead of piping them directly into the algorithm
         """
         Generates a key pair using two prime numbers
@@ -54,7 +58,7 @@ class Encryption:
         new_key = ''
         for letter in key:
             print("tuple_key: " + str(letter))
-            if letter.isdigit() or letter == "." or letter == "+" or letter == ",":
+            if letter.isdigit() or letter == "." or letter == "+" or letter == "," or letter == "e":
                 new_key = new_key + letter
         split_key = new_key.split(",")
         print("split key: " + str(split_key))
@@ -63,9 +67,9 @@ class Encryption:
             tkinter.messagebox.showerror("Invalid key", "Key must be in format (number, number) and cannot include both private and public keys at the same time")
             return None
 
-        split_key[0] = int(split_key[0])
-        split_key[1] = int(split_key[1])
-        return split_key
+        split_key[0] = float(split_key[0])
+        split_key[1] = float(split_key[1])
+        return split_key[0], split_key[1]
 
 
     def encrypt_text(self, msg: str, key: tuple) -> str | None:
@@ -88,7 +92,7 @@ class Encryption:
                     mangled_letter = mangled_letter // 2
                     print("mangled_letter loop: " + str(mangled_letter))
 
-                encrypted_msg = encrypted_msg + chr(mangled_letter)
+                encrypted_msg = encrypted_msg + chr(int(mangled_letter))
                 print("encrypt loop: " + encrypted_msg)
         except ValueError as e:
             tkinter.messagebox.showerror("Prime too big", "Inputted prime number was invalid or too big, error was: " + str(e))
@@ -98,7 +102,7 @@ class Encryption:
 
     def decrypt_text(self, msg: str, key: tuple) -> str:
         print("decrypt_text: key: " + str(key))
-        private_key = key[0]
+        private_key = key
         n, d = private_key
 
         decrypted_msg = ''
@@ -109,11 +113,11 @@ class Encryption:
                 print("decrypt loop: " + str(d))
                 print("decrypt loop: " + str(mangled_letter))
 
-                while mangled_letter > 11141111:
+                while mangled_letter > 1114111:
                     mangled_letter = mangled_letter // 2
                     print("mangled_letter loop: " + str(mangled_letter))
 
-                decrypted_msg = decrypted_msg + chr(mangled_letter)
+                decrypted_msg = decrypted_msg + chr(int(mangled_letter))
                 print("decrypt loop: " + decrypted_msg)
         except ValueError as e:
             tkinter.messagebox.showerror("Prime too big", "Inputted prime number was invalid or too big, error was: " + str(e))
@@ -168,9 +172,9 @@ class Encryption:
             elif key == '' and is_decrypt:
                 self.decrypt_text(self.msg.get('1.0', 'end-1c'), self.generate_key(None))
             elif is_decrypt:
-                self.encrypt_text(self.msg.get('1.0', 'end-1c'), self.tuple_key(key))
-            elif not is_decrypt:
                 self.decrypt_text(self.msg.get('1.0', 'end-1c'), self.tuple_key(key))
+            elif not is_decrypt:
+                self.encrypt_text(self.msg.get('1.0', 'end-1c'), self.tuple_key(key))
 
 
         def validate_input(input): # to delete?
