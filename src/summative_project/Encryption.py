@@ -13,7 +13,7 @@ prime2 = 655229
 class Encryption:
     decimalcontext = decimal.Context(prec=decimal.MAX_PREC, Emax=decimal.MAX_EMAX)
 
-    def generate_key(self, key: tuple | None) -> tuple[set[float | int], set[int]] | None:# TODO: give user the keys instead of piping them directly into the algorithm
+    def generate_key(self, key: tuple | None) -> tuple[set[float | int], set[int]] | None:
         """
         Generates a key pair using two prime numbers
         :param key: two prime numbers as a tuple
