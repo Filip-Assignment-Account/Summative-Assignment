@@ -84,7 +84,7 @@ class Encryption:
         encrypted_msg = ''
         try:
             for letter in msg:
-                mangled_letter = (ord(letter) ** e) % n
+                mangled_letter = pow(ord(letter), e) % n
                 print("encrypt loop: " + str(letter))
                 print("encrypt loop: " + str(e))
                 print("encrypt loop: " + str(mangled_letter))
@@ -108,7 +108,7 @@ class Encryption:
         decrypted_msg = ''
         try:
             for letter in msg:
-                mangled_letter = (ord(letter) ** d) % n
+                mangled_letter = pow(ord(letter), d) % n
                 print("decrypt loop: " + str(letter))
                 print("decrypt loop: " + str(d))
                 print("decrypt loop: " + str(mangled_letter))
