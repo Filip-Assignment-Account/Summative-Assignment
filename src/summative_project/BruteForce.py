@@ -38,6 +38,14 @@ class BruteForce:
             j += 1
             k += 1
 
+    def merge_sort(self, array, left, right):
+        if left < right:
+            mid = (left + right) // 2
+            # Using recursion, merge the split arrays together
+            self.merge_sort(array, left, mid)
+            self.merge_sort(array, mid + 1, right)
+            self.merge(array, left, mid, right)
+
 
 
 
