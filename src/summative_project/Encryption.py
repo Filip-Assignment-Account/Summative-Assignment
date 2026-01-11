@@ -1,11 +1,12 @@
 import tkinter.messagebox
+from typing import Any
+
 import main
 import math
 import functools
 from tkinter import *
 from tkinter import ttk
 import decimal
-from decimal import Decimal
 
 prime1 = 621869
 prime2 = 655229
@@ -62,6 +63,11 @@ class Encryption:
         return private_key, public_key
 
     def tuple_key(self, key: str):
+        """
+        Turns str key into tuple key
+        :param key: key in str
+        :return: key in tuple
+        """
         new_key = ''
         for letter in key:
             print("tuple_key: " + str(letter))
@@ -80,6 +86,12 @@ class Encryption:
 
 
     def encrypt_text(self, msg: str, key: tuple) -> str | None:
+        """
+        Taking text and a public key as an input, encrypts text
+        :param msg: Text to encrypt
+        :param key: Encryption public key
+        :return: Encrypted text
+        """
         print("encrypt: key value: " + str(key))
 
         if not key:
@@ -108,6 +120,12 @@ class Encryption:
         return encrypted_msg
 
     def decrypt_text(self, msg: str, key: tuple) -> str:
+        """
+        Same as encrypt_text, but the other way around
+        :param msg: Encrypted text to decrypt
+        :param key: Encryption private key
+        :return: Unencrypted text
+        """
         print("decrypt_text: key: " + str(key))
         private_key = key
         n, d = private_key
@@ -134,7 +152,12 @@ class Encryption:
         print(decrypted_msg)
         return decrypted_msg
 
-    def is_prime(self, number):
+    def is_prime(self, number: int) -> bool:
+        """
+        Checks if a number is a prime number
+        :param number: Number to check
+        :return: True if prime, false if not
+        """
         print("isprime: Checking if "+ str(number) + " is prime")
         if number <= 1:
             return False
@@ -145,7 +168,13 @@ class Encryption:
                 return False
         return True
 
-    def generate_keys_button(self, entry_prime1, entry_prime2):
+    def generate_keys_button(self, entry_prime1: object, entry_prime2: object) -> tuple[Any, Any] | None:
+        """
+        Handles the generate keys button click, defaulting to hardcoded prime numbers if no primes are present
+        :param entry_prime1: User inputted prime number 1
+        :param entry_prime2: User inputted prime number 1
+        :return: Private/public key pair
+        """
         prime_text1 = entry_prime1.get()
         prime_text2 = entry_prime2.get()
         print("button_encrypt: value of prime1_text: " + str(prime_text1))
