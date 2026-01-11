@@ -6,6 +6,7 @@ import functools
 import Encryption
 import Fibonacci
 import Sorting
+import BruteForce
 import string
 
 active_window = None
@@ -27,6 +28,8 @@ def button_click(name: str, parent: str) -> None:
             Fibonacci.init_window(parent)
         case 'Sorting':
             Sorting.init_window(parent)
+        case 'Brute Force':
+            BruteForce.init_window(parent)
         case _:
             tkinter.messagebox.showerror("Error", "Missing page for \"" + str(name) + "\" button")
             window.deiconify()
