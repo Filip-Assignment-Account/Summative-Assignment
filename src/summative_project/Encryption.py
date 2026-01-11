@@ -10,6 +10,13 @@ from decimal import Decimal
 prime1 = 621869
 prime2 = 655229
 
+#TODO: display generated keys and messages to the user
+
+"""Currently not working:
+    -Decryption
+    -Displaying messages/keys to user
+"""
+
 class Encryption:
     decimalcontext = decimal.Context(prec=decimal.MAX_PREC, Emax=decimal.MAX_EMAX)
 
