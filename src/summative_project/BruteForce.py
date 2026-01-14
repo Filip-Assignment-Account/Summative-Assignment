@@ -2,8 +2,9 @@ import main
 from tkinter import *
 from tkinter import ttk
 
+"""TODO: add ascending and descending options"""
 class BruteForce:
-    def merge(self, array, left, mid, right):
+    def merge(self, array: list, left:, mid, right):
         n1 = mid - left + 1
         n2 = right - mid
 
@@ -36,17 +37,20 @@ class BruteForce:
             k += 1
 
         while b < n2:
+            print("merge: " + str(array[k]))
             array[k] = R[b]
             b += 1
             k += 1
 
     def merge_sort(self, array, left, right):
         if left < right:
+            print("merge_sort: array: " + str(array))
             mid = (left + right) // 2
             # Using recursion, merge the split arrays together
             self.merge_sort(array, left, mid)
             self.merge_sort(array, mid + 1, right)
             self.merge(array, left, mid, right)
+            print("merge_sort: array: " + str(array))
             return array
 
     def update_textbox(self, msg: str) -> None:
@@ -85,8 +89,6 @@ class BruteForce:
         print("button_run: final entry_array: " + str(entry_array))
         sorted_array = self.merge_sort(entry_array, 0, len(entry_array) - 1)
         self.update_textbox(sorted_array)
-
-
 
 
     def __init__(self, window):
