@@ -14,7 +14,7 @@ def test_encryption():
 
 def test_cards():
     cards_object = Cards()
-    cards = cards.get_full_deck()
+    cards = cards_object.get_full_deck()
     assert len(cards) == 52
 
 
