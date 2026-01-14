@@ -1,7 +1,6 @@
 import main
 from tkinter import *
 from tkinter import ttk
-import tkinter
 
 class BruteForce:
     def merge(self, array, left, mid, right):
@@ -12,10 +11,10 @@ class BruteForce:
         R = [0] * n2
 
         #Split array into left and right sections
-        for i in range(n1):
-            L[i] = array[left + i]
-        for j in range(n2):
-            R[j] = array[mid + 1 + j]
+        for a in range(n1):
+            L[a] = array[left + a]
+        for b in range(n2):
+            R[b] = array[mid + 1 + b]
 
         a = 0
         b = 0
@@ -33,12 +32,12 @@ class BruteForce:
         #any residual elements get handled here
         while a < n1:
             array[k] = L[a]
-            i += 1
+            a += 1
             k += 1
 
         while b < n2:
             array[k] = R[b]
-            j += 1
+            b += 1
             k += 1
 
     def merge_sort(self, array, left, right):
