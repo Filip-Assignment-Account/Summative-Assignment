@@ -7,6 +7,7 @@ import Encryption
 import Fibonacci
 import Sorting
 import BruteForce
+import Cards
 import string
 
 active_window = None
@@ -30,6 +31,8 @@ def button_click(name: str, parent: str) -> None:
             Sorting.init_window(parent)
         case 'Brute Force':
             BruteForce.init_window(parent)
+        case 'Cards':
+            Cards.init_window(parent)
         case _:
             tkinter.messagebox.showerror("Error", "Missing page for \"" + str(name) + "\" button")
             window.deiconify()
@@ -161,7 +164,7 @@ if __name__ == "__main__":  # Need this here for the class to run
     window = Window("Algorithm Selection", 100, 100)
     main_window = window
     button_Names = ["Encryption", "Fibonacci Numbers", "Sorting", "Brute Force",
-                    "Randomised", "Recursion", "Search", "Dynamic Programming",
+                    "Cards", "Recursion", "Search", "Dynamic Programming",
                     "Behavioral Design Pattern", "Creational Design Pattern",
                     "Structural Design Pattern"]
     button_Range = len(button_Names)

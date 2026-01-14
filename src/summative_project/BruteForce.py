@@ -4,7 +4,7 @@ from tkinter import ttk
 
 """TODO: add ascending and descending options"""
 class BruteForce:
-    def merge(self, array: list, left:, mid, right):
+    def merge(self, array: list, left, mid, right):
         n1 = mid - left + 1
         n2 = right - mid
 
