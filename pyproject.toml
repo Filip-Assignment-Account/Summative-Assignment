@@ -10,4 +10,4 @@ name = "Summative"
 dev = ["pytest"]
 
 [tool.pytest.ini_options]
-pythonpath = [".", "src"]
+pythonpath = ["."]

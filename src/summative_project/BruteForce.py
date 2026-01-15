@@ -53,7 +53,7 @@ class BruteForce:
             print("merge_sort: array: " + str(array))
             return array
 
-    def update_textbox(self, msg: str) -> None:
+    def update_textbox(self, msg: str) -> None: # Consider making this a class in main
         """
         Updates output textbox with arbitrary text
         :param msg: Text to put in the textbox
