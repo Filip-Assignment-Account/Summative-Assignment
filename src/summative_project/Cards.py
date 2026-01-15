@@ -20,7 +20,11 @@ class Card:
             self.suit = suit
 
 class Cards:
-    def get_full_deck(self) -> list:
+    def get_full_deck(self) -> list: #Consider moving constructor to a separate function to avoid constantly constructing card objects
+        """
+        Constructs cards and appends them to a deck list for each suit and card combination available
+        :return: full deck in a list
+        """
         deck = []
         for i in cards:
             for j in suits:
@@ -31,9 +35,12 @@ class Cards:
         return deck
 
     def shuffle_cards(self) -> list:
+        """
+        Shuffles deck and returns list of cards in a random order
+        :return: shuffled deck
+        """
         deck = self.get_full_deck()
         random.shuffle(deck)
-        print("shuffled_deck:  " + str(deck))
         return deck
 
     def __init__(self, window):
