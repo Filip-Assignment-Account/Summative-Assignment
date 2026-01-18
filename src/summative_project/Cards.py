@@ -75,8 +75,8 @@ class Cards:
         self.text.config(state="disabled")
 
 
-def init_window(window):
+def init_window(main_window):
     window = main.Window("Brute Force", 30, 100)
     window.add_back_button()
-    window.parent = window
+    window.parent = main_window
     cards = Cards(window)
