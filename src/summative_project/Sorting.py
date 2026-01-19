@@ -88,6 +88,8 @@ class Sorting:
             self.update_textbox(sorted_array)
 
     def __init__(self, window):
+        if not window: # If other files need functions from here we don't want to create a window
+            return
         window.add_title("Sorting algorithm", 1, 1)
         entry = window.add_entry(True, 5, 1, 2, 1, 1, True)
         entry_button = ttk.Button(window, text="Run algorithm", command=main.functools.partial(self.button_run, entry))
