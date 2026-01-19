@@ -65,6 +65,7 @@ class Cards:
         full_deck = self.get_full_deck()
         print(full_deck)
         window.add_title("Cards", 1, 1)
+
         entry_button = ttk.Button(window, text="Run algorithm", command=button_run)
         entry_button.grid(row=2, column=2)
 

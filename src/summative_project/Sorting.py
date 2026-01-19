@@ -59,11 +59,10 @@ class Sorting:
         :param entry:
         :return:
         """
-        entry_input = entry[0].get()
-        print("button run: " + entry_input)
+        print("button run: " + str(entry))
         entry_array = []
         entry_number = ""
-        for i in entry_input:
+        for i in entry:
             if i != " ":
                 entry_number = entry_number + i
             if i == " ": # Separate each index by a space
@@ -76,19 +75,23 @@ class Sorting:
             print("button_run: final number appended")
 
         print("button_run: final entry_array: " + str(entry_array))
-        print("button_run: got dropdown var: " + str(self.opt.get()))
+        try:
+            print("button_run: got dropdown var: " + str(self.opt.get()))
 
-        if self.opt.get() == "Selection Sort":
-            print("button_run: got selection sort")
-            sorted_array = self.selection_sort(entry_array)
-            self.update_textbox(sorted_array)
-        if self.opt.get() == "Bubble Sort":
-            print("button_run: got bubble sort")
-            sorted_array = self.bubble_sort(entry_array)
-            self.update_textbox(sorted_array)
+            if self.opt.get() == "Selection Sort":
+                print("button_run: got selection sort")
+                sorted_array = self.selection_sort(entry_array)
+                self.update_textbox(sorted_array)
+            if self.opt.get() == "Bubble Sort":
+                print("button_run: got bubble sort")
+                sorted_array = self.bubble_sort(entry_array)
+                self.update_textbox(sorted_array)
+        except AttributeError:
+            self.selection_sort(entry_array) # for if being run outside this file
 
     def __init__(self, window):
-        if not window: # If other files need functions from here we don't want to create a window
+        if not window:# If other files need functions from here we don't want to create a window
+            print("Sorting: called from somewhere else, skipping window setup")
             return
         window.add_title("Sorting algorithm", 1, 1)
         entry = window.add_entry(True, 5, 1, 2, 1, 1, True)
