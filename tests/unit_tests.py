@@ -1,7 +1,7 @@
 import sys
 sys.path.append("..\..\src\summative_project")
-import src.summative_project.Encryption as Encryption
-import src.summative_project.Cards as Cards
+from summative_project.Encryption import Encryption
+from summative_project.Cards import Cards
 
 """Functions run from here cannot find main, for example running encryption.encrypt_text() will complain that
 encryption cannot find main , no idea why"""
