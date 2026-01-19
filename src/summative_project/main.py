@@ -9,6 +9,7 @@ import Sorting
 import BruteForce
 import Cards
 import Factorial
+import Search
 import string
 
 active_window = None
@@ -36,6 +37,8 @@ def button_click(name: str, parent: str) -> None:
             Cards.init_window(parent)
         case 'Factorial':
             Factorial.init_window(parent)
+        case 'Search':
+            Search.init_window(parent)
         case _:
             tkinter.messagebox.showerror("Error", "Missing page for \"" + str(name) + "\" button")
             window.deiconify()
@@ -167,9 +170,7 @@ if __name__ == "__main__":  # Need this here for the class to run
     window = Window("Algorithm Selection", 100, 100)
     main_window = window
     button_Names = ["Encryption", "Fibonacci Numbers", "Sorting", "Brute Force",
-                    "Cards", "Factorial", "Search", "Dynamic Programming",
-                    "Behavioral Design Pattern", "Creational Design Pattern",
-                    "Structural Design Pattern"]
+                    "Cards", "Factorial", "Search", "Dynamic Programming"]
     button_Range = len(button_Names)
     counter = -1
     button_Flag = 0
@@ -182,7 +183,7 @@ if __name__ == "__main__":  # Need this here for the class to run
         else:
             button_Flag = 0
         button = ttk.Button(window, text=str(button_Names[i]),  # Planned: make graphical buttons using classes
-                            command=functools.partial(button_click, button_Names[i], main_window))
+                            command=functools.partial(button_click, button_Names[i], main_window), width=20)
         button.grid(column=counter, row=button_Flag)
 
     window.mainloop()
