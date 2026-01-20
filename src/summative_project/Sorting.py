@@ -55,6 +55,11 @@ class Sorting:
         self.text.config(state="disabled")
 
     def validate_spaces(self, entry_input: list) -> list | None:
+        """
+        Validates spaces between each index in the array
+        :param entry_input: Array to validate
+        :return: List or none if validation fails
+        """
         entry_array = []
         entry_number = ""
         try:
