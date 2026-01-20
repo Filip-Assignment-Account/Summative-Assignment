@@ -59,7 +59,7 @@ class Fibonacci:
         entry_button.grid(row=1, column=2)
         
 
-def init_window(main_window: main.Window):
+def init_window(main_window):
     window = main.Window("Fibonacci", 200, 300)
     window.add_back_button()
     window.parent = main_window
