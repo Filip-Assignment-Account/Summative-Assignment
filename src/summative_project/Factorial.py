@@ -1,4 +1,5 @@
 import main
+import sys
 from tkinter import *
 from tkinter import ttk
 
@@ -17,6 +18,7 @@ class Factorial:
 
 
     def __init__(self, window):
+        sys.set_int_max_str_digits(0)
         def update_textbox(msg: str) -> None: # Consider making this a class in main
             """
             Updates output textbox with arbitrary text
