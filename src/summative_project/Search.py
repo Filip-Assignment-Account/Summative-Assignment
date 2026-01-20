@@ -9,9 +9,9 @@ class Search:
     def __init__(self, window):
         sorting = Sorting.Sorting(None)
 
-
         def button_run(entry):
-            sorted_arr = sorting.button_run(entry)
+            validated_arr = sorting.validate_spaces(entry[0].get())
+            sorted_arr = sorting.selection_sort(validated_arr)
             print(sorted_arr)
 
 
