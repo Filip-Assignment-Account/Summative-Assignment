@@ -52,7 +52,7 @@ class Sorting:
         self.text.insert(END, str(msg))
         self.text.config(state="disabled")
 
-    def validate_spaces(self, entry_input):
+    def validate_spaces(self, entry_input: list) -> list:
         entry_array = []
         entry_number = ""
         for i in entry_input:
