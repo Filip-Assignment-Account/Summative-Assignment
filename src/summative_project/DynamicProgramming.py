@@ -5,7 +5,12 @@ from tkinter import *
 
 
 class DynamicProgramming:
-    def count(self, string):
+    def count(self, string: str) -> int:
+        """
+        Counts the number of palindromes in given string and returns how many there are
+        :param string: String to count
+        :return: Number of palindromes
+        """
         length = len(string)
         result = 0
 
@@ -32,13 +37,13 @@ class DynamicProgramming:
 
 
     def __init__(self, window):
-        def update_textbox(msg: int):
+        def update_textbox(msg: int) -> None:
             self.text.config(state="normal")
             self.text.delete('1.0', END)
             self.text.insert(END, str(msg))
             self.text.config(state="disabled")
 
-        def button_run():
+        def button_run() -> None:
             print("button_run: entry: " + str(self.entry[0].get()))
             result = self.count(self.entry[0].get())
             update_textbox(result)
