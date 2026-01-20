@@ -9,19 +9,24 @@ class Search:
     def __init__(self, window):
         sorting = Sorting.Sorting(None)
 
-        def update_textbox(textbox, string: int):
-            self.text.config(state="normal")
-            self.text.delete("1.0", END)
-            self.text.insert(END, str(string))
-            self.text.config(state="disabled")
+        def update_textbox(textbox: int, value: int):
+            self.textboxes[textbox].config(state="normal")
+            self.textboxes[textbox].delete("1.0", END)
+            self.textboxes[textbox].insert(END, str(value))
+            self.textboxes[textbox].config(state="disabled")
 
 
         def fill_textboxes(array):
-            update_textbox(1, array[0])
+            update_textbox(0, array[0])
+            length = len(array)
+            update_textbox(1, array[length-1])
+            update_textbox(2, array[length//2])
 
 
         def button_run(entry):
             validated_arr = sorting.validate_spaces(entry[0].get())
+            if not validated_arr:
+                return
             sorted_arr = sorting.selection_sort(validated_arr)
             fill_textboxes(sorted_arr)
 
@@ -36,7 +41,7 @@ class Search:
         textbox_width = 8
 
         text = ["Smallest:", "Largest:", "Median:", "1st and 3rd IQF"]
-        textboxes = []
+        self.textboxes = []
         text_labels = []
         count = 0
 
@@ -45,8 +50,8 @@ class Search:
             text_label = Label(window, text=i)
             text_labels.append(text_label)
             textbox = Text(window, wrap='word', height=1, width=textbox_width)
-            textboxes.append(textbox)
-        for i in textboxes:
+            self.textboxes.append(textbox)
+        for i in self.textboxes:
             i.grid(row=4+count, column=1)
             count += 2
 

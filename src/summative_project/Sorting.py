@@ -1,3 +1,5 @@
+import tkinter.messagebox
+
 import main
 from tkinter import ttk
 from tkinter import *
@@ -52,21 +54,25 @@ class Sorting:
         self.text.insert(END, str(msg))
         self.text.config(state="disabled")
 
-    def validate_spaces(self, entry_input: list) -> list:
+    def validate_spaces(self, entry_input: list) -> list | None:
         entry_array = []
         entry_number = ""
-        for i in entry_input:
-            if i != " ":
-                entry_number = entry_number + i
-            if i == " ": # Separate each index by a space
-                print("button_run: detected space, entry_number: " + str(entry_number))
-                entry_array.append(int(entry_number))
-                print("button_run: entry_array: " + str(entry_array))
-                entry_number = ""
-        if entry_number != "":
-            entry_array.append(int(entry_number)) # If last number is not added to the final array
-            print("button_run: final number appended")
-        return entry_array
+        try:
+            for i in entry_input:
+                if i != " ":
+                    entry_number = entry_number + i
+                if i == " ": # Separate each index by a space
+                    print("button_run: detected space, entry_number: " + str(entry_number))
+                    entry_array.append(int(entry_number))
+                    print("button_run: entry_array: " + str(entry_array))
+                    entry_number = ""
+            if entry_number != "":
+                entry_array.append(int(entry_number)) # If last number is not added to the final array
+                print("button_run: final number appended")
+            return entry_array
+        except IndexError and ValueError:
+            tkinter.messagebox.showerror("Error", "Each index must be separated by only one space")
+            return None
 
 
     def button_run(self, entry: list) -> None:
@@ -78,6 +84,8 @@ class Sorting:
         entry_input = entry[0].get()
         print("button run: " + str(entry))
         entry_array = self.validate_spaces(entry_input)
+        if not entry_array:
+            return
 
         print("button_run: final entry_array: " + str(entry_array))
         print("button_run: got dropdown var: " + str(self.opt.get()))
