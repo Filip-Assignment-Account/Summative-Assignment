@@ -14,16 +14,11 @@ class Search:
             return sorted_array
 
 
-        def button_run():
-            sorted_arr = sort_array(self.entry[0].get())
-            print(sorted_arr)
-
-
         window.add_title("Search", 1, 1)
 
         self.entry = window.add_entry(True, 5, 1, 2, 1, 1, True)
 
-        entry_button = ttk.Button(window, text="Run algorithm", command=functools.partial(sorting.button_run, self.entry[0].get()))
+        entry_button = ttk.Button(window, text="Run algorithm", command=functools.partial(sorting.button_run, self.entry))
         entry_button.grid(row=2, column=2)
 
         textbox_width = 8

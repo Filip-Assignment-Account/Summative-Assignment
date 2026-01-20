@@ -59,10 +59,11 @@ class Sorting:
         :param entry:
         :return:
         """
+        entry_input = entry[0].get()
         print("button run: " + str(entry))
         entry_array = []
         entry_number = ""
-        for i in entry:
+        for i in entry_input:
             if i != " ":
                 entry_number = entry_number + i
             if i == " ": # Separate each index by a space
