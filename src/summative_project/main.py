@@ -11,6 +11,7 @@ import Cards
 import Factorial
 import Search
 import Factory
+import DynamicProgramming
 import string
 
 active_window = None
@@ -40,6 +41,8 @@ def button_click(name: str, parent: str) -> None:
             Factorial.init_window(parent)
         case 'Search':
             Search.init_window(parent)
+        case 'Dynamic Programming':
+            DynamicProgramming.init_window(parent)
         case 'Factory':
             Factory.init_window(parent)
         case _:
