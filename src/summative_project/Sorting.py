@@ -100,7 +100,7 @@ class Sorting:
             self.update_textbox(sorted_array)
 
     def __init__(self, window):
-        if not window:# If other files need functions from here we don't want to create a window
+        if not window: # If other files need functions from here we don't want to create a window
             print("Sorting: called from somewhere else, skipping window setup")
             return
         window.add_title("Sorting algorithm", 1, 1)

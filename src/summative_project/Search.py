@@ -9,11 +9,15 @@ class Search:
     def __init__(self, window):
         sorting = Sorting.Sorting(None)
 
-        def update_textbox(textbox: int, value: int):
+        def update_textbox(textbox: int, value: int | str):
             self.textboxes[textbox].config(state="normal")
             self.textboxes[textbox].delete("1.0", END)
             self.textboxes[textbox].insert(END, str(value))
             self.textboxes[textbox].config(state="disabled")
+
+        def split_list(array):
+             half = len(array)//2
+             return array[:half], array[half:]
 
 
         def fill_textboxes(array):
@@ -21,6 +25,9 @@ class Search:
             length = len(array)
             update_textbox(1, array[length-1])
             update_textbox(2, array[length//2])
+            first_half, last_half = split_list(array)
+            last_half_length = len(last_half)
+            update_textbox(3, str(array[length//4]) + " " + str(last_half[last_half_length//2]))
 
 
         def button_run(entry):
