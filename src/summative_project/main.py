@@ -10,7 +10,7 @@ import BruteForce
 import Cards
 import Factorial
 import Search
-import Builder
+import Factory
 import string
 
 active_window = None
@@ -40,8 +40,8 @@ def button_click(name: str, parent: str) -> None:
             Factorial.init_window(parent)
         case 'Search':
             Search.init_window(parent)
-        case 'Builder':
-            Builder.init_window(parent)
+        case 'Factory':
+            Factory.init_window(parent)
         case _:
             tkinter.messagebox.showerror("Error", "Missing page for \"" + str(name) + "\" button")
             window.deiconify()
@@ -173,7 +173,7 @@ if __name__ == "__main__":  # Need this here for the class to run
     window = Window("Algorithm Selection", 100, 100)
     main_window = window
     button_Names = ["Encryption", "Fibonacci Numbers", "Sorting", "Brute Force",
-                    "Cards", "Factorial", "Search", "Dynamic Programming", "Builder"]
+                    "Cards", "Factorial", "Search", "Dynamic Programming", "Factory"]
     button_Range = len(button_Names)
     counter = -1
     button_Flag = 0
