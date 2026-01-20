@@ -19,7 +19,6 @@ class Sorting:
                     minimum_index = j
 
             array[i], array[minimum_index] = array[minimum_index], array[i]
-            #print("selection sort: " + str(array))
         print("final array: " + str(array))
         return array
 
@@ -42,7 +41,7 @@ class Sorting:
                 print("final array: " + str(array))
                 return array
 
-    def update_textbox(self, msg: str) -> None:
+    def update_textbox(self, msg: list) -> None:
         """
         Updates output textbox with arbitrary text
         :param msg: Text to put in the textbox
@@ -53,14 +52,7 @@ class Sorting:
         self.text.insert(END, str(msg))
         self.text.config(state="disabled")
 
-    def button_run(self, entry: list) -> None:
-        """
-        Handles which algorithm to run and ensures that each index is an integer when the user clicks the button
-        :param entry:
-        :return:
-        """
-        entry_input = entry[0].get()
-        print("button run: " + str(entry))
+    def validate_spaces(self, entry_input):
         entry_array = []
         entry_number = ""
         for i in entry_input:
@@ -74,21 +66,30 @@ class Sorting:
         if entry_number != "":
             entry_array.append(int(entry_number)) # If last number is not added to the final array
             print("button_run: final number appended")
+        return entry_array
+
+
+    def button_run(self, entry: list) -> None:
+        """
+        Handles which algorithm to run and ensures that each index is an integer when the user clicks the button
+        :param entry:
+        :return:
+        """
+        entry_input = entry[0].get()
+        print("button run: " + str(entry))
+        entry_array = self.validate_spaces(entry_input)
 
         print("button_run: final entry_array: " + str(entry_array))
-        try:
-            print("button_run: got dropdown var: " + str(self.opt.get()))
+        print("button_run: got dropdown var: " + str(self.opt.get()))
 
-            if self.opt.get() == "Selection Sort":
-                print("button_run: got selection sort")
-                sorted_array = self.selection_sort(entry_array)
-                self.update_textbox(sorted_array)
-            if self.opt.get() == "Bubble Sort":
-                print("button_run: got bubble sort")
-                sorted_array = self.bubble_sort(entry_array)
-                self.update_textbox(sorted_array)
-        except AttributeError:
-            self.selection_sort(entry_array) # for if being run outside this file
+        if self.opt.get() == "Selection Sort":
+            print("button_run: got selection sort")
+            sorted_array = self.selection_sort(entry_array)
+            self.update_textbox(sorted_array)
+        if self.opt.get() == "Bubble Sort":
+            print("button_run: got bubble sort")
+            sorted_array = self.bubble_sort(entry_array)
+            self.update_textbox(sorted_array)
 
     def __init__(self, window):
         if not window:# If other files need functions from here we don't want to create a window
